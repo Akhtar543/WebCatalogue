@@ -6,6 +6,7 @@ cartproduct=[]
 cartimg=[]
 cartprice=[]
 cartamount=[]
+hiddenamount=[]
 conf=''
 @app.route('/',methods=['GET','POST'])
 def main():
@@ -54,7 +55,7 @@ def main():
                 return redirect(url_for('shop',productname=productname))
             case 'cart':
                 return redirect(url_for('cart'))
-    
+
 @app.route('/<productname>',methods=['GET','POST'])
 def shop(productname):
     global conf
@@ -73,7 +74,6 @@ def shop(productname):
                     cartprice.append(price)
                     cartamount.append(amount)
                     conf='Added to cart.'
-                    return redirect(url_for('main'))
                 else:
                     error='Please enter a valid amount.'
                     return render_template('aaaa.html',productimg=productimg,error=error)
@@ -99,7 +99,15 @@ def cart():
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]}0')
             )
+            print(hiddenamount)
         return render_template('cart.html',data=data,headings=headings,total=total,cartproduct=cartproduct,cartimglen=cartimglen)
-  
+    '''else:
+        zanumber=request.form.get('remove')
+        cartimg.remove()
+        cartproduct.remove()
+        cartamount.remove()
+        cartprice.remove()
+        '''
+
 if __name__=='__main__':
     app.run()
