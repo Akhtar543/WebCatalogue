@@ -6,7 +6,9 @@ cartproduct=[]
 cartimg=[]
 cartprice=[]
 cartamount=[]
+headings=['Items','Product','Quantity','Price']
 hiddenamount=[]
+count=0
 conf=''
 @app.route('/',methods=['GET','POST'])
 def main():
@@ -58,7 +60,7 @@ def main():
 
 @app.route('/<productname>',methods=['GET','POST'])
 def shop(productname):
-    global conf
+    global conf,count
     if request.method=='GET':
         return render_template('aaaa.html',productimg=productimg,conf=conf)
     else:
@@ -73,7 +75,14 @@ def shop(productname):
                     cartimg.append(productimg)
                     cartprice.append(price)
                     cartamount.append(amount)
+                    if count==0:
+                        hiddenamount.append(count)
+                        count=count+1
+                    else:
+                        hiddenamount.append(count)
+                        count=count+1
                     conf='Added to cart.'
+                    return redirect(url_for('main')) 
                 else:
                     error='Please enter a valid amount.'
                     return render_template('aaaa.html',productimg=productimg,error=error)
@@ -87,27 +96,45 @@ def shop(productname):
 @app.route('/cart',methods=['GET','POST'])
 def cart():
     if request.method=='GET':
+        global data,total,cartimglen
         data=[]
         total=0
-        headings=['Items','Product','Quantity','Price']
         cartimglen=len(cartimg)
         for i in range(cartimglen):
             total=total+(cartprice[i]*cartamount[i])
             data.append(
-                (f'<img src="/static/store/{cartimg[i]}.jpg" style="width:200px;height:200px;">',
+                (f'<img src="/static/store/{cartimg[i]}.jpg">',
                  cartproduct[i],
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]}0')
             )
-            print(hiddenamount)
-        return render_template('cart.html',data=data,headings=headings,total=total,cartproduct=cartproduct,cartimglen=cartimglen)
-    '''else:
+        return render_template('cart.html',data=data,headings=headings,total=total,hiddenamount=hiddenamount,cartimglen=cartimglen)
+    else:
         zanumber=request.form.get('remove')
-        cartimg.remove()
-        cartproduct.remove()
-        cartamount.remove()
-        cartprice.remove()
-        '''
+        check=zanumber.isdigit()
+        print(check)
+        if check==True:
+            zanumber=int(zanumber)
+            cartimg.pop(zanumber)
+            cartproduct.pop(zanumber)
+            cartamount.pop(zanumber)
+            cartprice.pop(zanumber)
+            return redirect(url_for('cart'))
+        else:
+            return redirect(url_for('receipt'))
+
+@app.route('/receipt',methods=['GET','POST'])
+def receipt():
+    if request.method=='GET':
+        print('a')
+        data2=[]
+        for i in range(cartimglen):
+            data2.append(
+                (cartproduct[i],
+                 f'QTY: {cartamount[i]}',
+                 f'${cartprice[i]:.2f}')
+            )
+        return render_template('storereceipt.html',data=data,headings=headings,total=total)
 
 if __name__=='__main__':
     app.run()
