@@ -24,9 +24,11 @@
 			{%endfor%}
 		</table>
 		<h3>Remove Items</h3>
-			{%for i in range(0,cartimglen)%}
-				<h4>{{i+1}}:</h4>
-				<button id='btnremove' name={{cartproduct[i]}}>Remove</button><br>
-			{%endfor%}
+			<form method='post'>
+				{%for i in range(0,cartimglen)%}
+					<h4>{{i+1}}:</h4>
+					<button id='btnremove' name='remove' value={{cartproduct[i]}}>Remove</button><br>
+				{%endfor%}
+			</form>
 	</body>
 </html>
