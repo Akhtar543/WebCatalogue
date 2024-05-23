@@ -6,9 +6,7 @@
 	</head>
 	<body>
 		<h1>Shopping Cart</h1>
-		<h3>{{total}}0</h3>
-		<button>CHECKOUT</button>
-		<table style='border-collapse: collapse;'>
+		<table>
 			<tr>
 				{%for header in headings%}
 					<th>{{header}}</th>
@@ -19,7 +17,6 @@
 					{%for cell in row%}
 						<td>{{cell|safe}}</td>
 					{%endfor%}
-					
 				</tr>
 			{%endfor%}
 		</table>
@@ -27,8 +24,12 @@
 			<form method='post'>
 				{%for i in range(0,cartimglen)%}
 					<h4>{{i+1}}:</h4>
-					<button id='btnremove' name='remove' value={{cartproduct[i]}}>Remove</button><br>
+					<button id='btnremove' name='remove' value={{hiddenamount[i]}}>Remove</button><br>
 				{%endfor%}
 			</form>
+		<h3>{{total}}0</h3>
+		<form method='post'>
+			<button name='remove' value='nunyabusiness'>CHECKOUT</button>
+		</form>
 	</body>
 </html>
