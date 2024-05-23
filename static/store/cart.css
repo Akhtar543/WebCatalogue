@@ -1,0 +1,6 @@
+table{
+	border-collapse: collapse;
+}
+td,th{
+	border-bottom: 1px solid black; /* Customize the line style and color */
+}
