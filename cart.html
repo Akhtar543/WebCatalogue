@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping Cart</title>
+		<link rel='stylesheet' href='/static/store/cart.css'>
+	</head>
+	<body>
+		<h1>Shopping Cart</h1>
+		<table>
+			<tr>
+				{%for header in headings%}
+					<th>{{header}}</th>
+				{%endfor%}
+			</tr>
+			{%for row in data%}
+				<tr>
+					{%for cell in row%}
+						<td>{{cell|safe}}</td>
+					{%endfor%}
+				</tr>
+			{%endfor%}
+		</table>
+		<h3>Remove Items</h3>
+			<form method='post'>
+				{%for i in range(0,cartimglen)%}
+					<h4>{{i+1}}:</h4>
+					<button id='btnremove' name='remove' value={{hiddenamount[i]}}>Remove</button><br>
+				{%endfor%}
+			</form>
+		<h3>{{total}}0</h3>
+		<form method='post'>
+			<button name='remove' value='nunyabusiness'>CHECKOUT</button>
+		</form>
+	</body>
+</html>

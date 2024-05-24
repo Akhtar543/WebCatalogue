@@ -7,6 +7,7 @@ cartimg=[]
 cartprice=[]
 cartamount=[]
 headings=['Items','Product','Quantity','Price']
+headings2=['Product','Quantity','Price']
 hiddenamount=[]
 count=0
 conf=''
@@ -15,7 +16,7 @@ def main():
     global productimg,productname,price
     if request.method=='GET':
         total=0
-        return render_template('aaa.html',conf=conf)
+        return render_template('shopping.html',conf=conf)
     else:
         productimg=request.form.get('pick')
         match productimg:
@@ -62,7 +63,7 @@ def main():
 def shop(productname):
     global conf,count
     if request.method=='GET':
-        return render_template('aaaa.html',productimg=productimg,conf=conf)
+        return render_template('option.html',productimg=productimg,conf=conf)
     else:
         mystery=request.form.get('clicked')
         amount=request.form.get('amount')
@@ -88,7 +89,7 @@ def shop(productname):
                     return render_template('aaaa.html',productimg=productimg,error=error)
             else:
                 error='Please enter a valid amount.'
-                return render_template('aaaa.html',productimg=productimg,error=error)
+                return render_template('option.html',productimg=productimg,error=error)
         else:
             conf=''
             return redirect(url_for('main'))
@@ -134,7 +135,7 @@ def receipt():
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]:.2f}')
             )
-        return render_template('storereceipt.html',data=data,headings=headings,total=total)
+        return render_template('receipt.html',data2=data2,headings2=headings2,total=total)
 
 if __name__=='__main__':
     app.run()
