@@ -7,7 +7,6 @@ cartimg=[]
 cartprice=[]
 cartamount=[]
 headings=['Items','Product','Quantity','Price']
-headings2=['Product','Quantity','Price']
 hiddenamount=[]
 count=0
 conf=''
@@ -16,7 +15,7 @@ def main():
     global productimg,productname,price
     if request.method=='GET':
         total=0
-        return render_template('shopping.html',conf=conf)
+        return render_template('aaa.html',conf=conf)
     else:
         productimg=request.form.get('pick')
         match productimg:
@@ -63,7 +62,7 @@ def main():
 def shop(productname):
     global conf,count
     if request.method=='GET':
-        return render_template('option.html',productimg=productimg,conf=conf)
+        return render_template('aaaa.html',productimg=productimg,conf=conf)
     else:
         mystery=request.form.get('clicked')
         amount=request.form.get('amount')
@@ -89,7 +88,7 @@ def shop(productname):
                     return render_template('aaaa.html',productimg=productimg,error=error)
             else:
                 error='Please enter a valid amount.'
-                return render_template('option.html',productimg=productimg,error=error)
+                return render_template('aaaa.html',productimg=productimg,error=error)
         else:
             conf=''
             return redirect(url_for('main'))
@@ -101,7 +100,7 @@ def cart():
         data=[]
         total=0
         cartimglen=len(cartimg)
-        for i in range(cartimglen):
+        for i in range(0,cartimglen):
             total=total+(cartprice[i]*cartamount[i])
             data.append(
                 (f'<img src="/static/store/{cartimg[i]}.jpg">',
@@ -129,13 +128,29 @@ def receipt():
     if request.method=='GET':
         print('a')
         data2=[]
-        for i in range(cartimglen):
+        for i in range(0,cartimglen):
             data2.append(
                 (cartproduct[i],
-                 f'QTY: {cartamount[i]}',
-                 f'${cartprice[i]:.2f}')
+                 f'QTY:{cartamount[i]}',
+                 f'${cartprice[i]}0')
             )
-        return render_template('receipt.html',data2=data2,headings2=headings2,total=total)
+        filename=...+'.txt'
+        ifexists=bool(path.exists(filename))
+        if ifexists==False:
+            pythfile=open(filename,'w')
+            print(...'s file created successfully!')
+            for i in range(0,cartimglen):
+                pythfile.write(cartproduct[i],cartamount[i],cartprice[i])
+            pythfile.close()
+        else:
+            pythfile=open(filename,"a")
+            for i in range(0,cartimglen):
+                pythfile.write(cartproduct[i],cartamount[i],cartprice[i])
+            pythfile.close()
+        pythfile=open(filename,'r')
+        print(pythfile.readline())
+        pythfile.close()
+        return render_template('storereceipt.html',data=data,headings=headings,total=total)
 
 if __name__=='__main__':
     app.run()
