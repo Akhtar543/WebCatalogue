@@ -15,7 +15,7 @@ def main():
     global productimg,productname,price
     if request.method=='GET':
         total=0
-        return render_template('aaa.html',conf=conf)
+        return render_template('/store/shopping.html',conf=conf)
     else:
         productimg=request.form.get('pick')
         match productimg:
@@ -62,7 +62,7 @@ def main():
 def shop(productname):
     global conf,count
     if request.method=='GET':
-        return render_template('aaaa.html',productimg=productimg,conf=conf)
+        return render_template('/store/option.html',productimg=productimg,conf=conf)
     else:
         mystery=request.form.get('clicked')
         amount=request.form.get('amount')
@@ -108,7 +108,7 @@ def cart():
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]}0')
             )
-        return render_template('cart.html',data=data,headings=headings,total=total,hiddenamount=hiddenamount,cartimglen=cartimglen)
+        return render_template('/store/cart.html',data=data,headings=headings,total=total,hiddenamount=hiddenamount,cartimglen=cartimglen)
     else:
         zanumber=request.form.get('remove')
         check=zanumber.isdigit()
@@ -150,7 +150,7 @@ def receipt():
         pythfile=open(filename,'r')
         print(pythfile.readline())
         pythfile.close()
-        return render_template('storereceipt.html',data=data,headings=headings,total=total)
+        return render_template('/store/storereceipt.html',data=data,headings=headings,total=total)
 
 if __name__=='__main__':
     app.run()
