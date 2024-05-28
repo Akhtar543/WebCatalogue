@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request,redirect,url_for
+from os import path
 
 app=Flask(__name__)
 
@@ -9,6 +10,7 @@ cartamount=[]
 headings=['Items','Product','Quantity','Price']
 hiddenamount=[]
 count=0
+productimg=''
 conf=''
 @app.route('/',methods=['GET','POST'])
 def main():
@@ -20,7 +22,7 @@ def main():
         productimg=request.form.get('pick')
         match productimg:
             case 'a':
-                productname='prod1' #all soon to change(match product name, price, and add more ofc)
+                productname='prod1' #all soon to change(product name, price, and add more ofc)
                 price=10.00
                 return redirect(url_for('shop',productname=productname))
             case 'b':
@@ -134,18 +136,22 @@ def receipt():
                  f'QTY:{cartamount[i]}',
                  f'${cartprice[i]}0')
             )
-        filename=...+'.txt'
+        filename='test'+'.txt'#change test
         ifexists=bool(path.exists(filename))
         if ifexists==False:
             pythfile=open(filename,'w')
-            print(...'s file created successfully!')
+            print('s file created successfully!')#put name variable b4 's
             for i in range(0,cartimglen):
-                pythfile.write(cartproduct[i],cartamount[i],cartprice[i])
+                pythfile.write(cartproduct[i])
+                pythfile.write(str(cartamount[i]))
+                pythfile.write(str(cartprice[i]))
             pythfile.close()
         else:
             pythfile=open(filename,"a")
             for i in range(0,cartimglen):
-                pythfile.write(cartproduct[i],cartamount[i],cartprice[i])
+                pythfile.write(cartproduct[i])
+                pythfile.write(str(cartamount[i]))
+                pythfile.write(str(cartprice[i]))
             pythfile.close()
         pythfile=open(filename,'r')
         print(pythfile.readline())
