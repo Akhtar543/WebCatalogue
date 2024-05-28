@@ -8,40 +8,43 @@ cartimg=[]
 cartprice=[]
 cartamount=[]
 headings=['Items','Product','Quantity','Price']
+headings2=['Product','Quantity','Price']
 hiddenamount=[]
 count=0
 productimg=''
 conf=''
+error=''
+regusername=None
+regpassword=None
 
-'''
 @app.route('/',methods=['GET','POST'])
 def signin():
+    global regusername,regpassword
     if request.method=="GET":
         return render_template("/store/signIn.html", error="")
     else:
         password=request.form.get("password")
         username=request.form.get("username")
-        if regusername != None and regpassword != None:
-            if password.len() > 4 and username.len() > 2:
-                regusername = username
-                regpassword = password
-                return redirect_url(url_for("main"))
+        if regusername==None and regpassword==None:
+            if len(password) > 4 and len(username) > 2:
+                regusername=username
+                regpassword=password
+                return redirect(url_for("shopping"))
             else:
-                if password.len() < 5 and username.len() < 3:
+                if len(password) < 5 and len(username) < 3:
                     return render_template("/store/signIn.html", error="Both username and password are too short")
-                if password.len() < 5:
-                    return render_template("/store/signIn.html", error="Your assword is too short")
-                if username.len() < 3:
+                if len(password) < 5:
+                    return render_template("/store/signIn.html", error="Your password is too short")
+                if len(username) < 3:
                     return render_template("/store/signIn.html", error="Your username is too short")
         else:
-            if password == regpassword and username == regusername:
-                return redirect_url(url_for("main"))
+            if password==regpassword and username==regusername:
+                return redirect(url_for("shopping"))
             else:
-                return render_template("/store/signIn.html", error="Incorrect Password")
-'''
+                return render_template("/store/signIn.html", error="Incorrect Username or Password")
 
-@app.route('/shopping',methods=['GET','POST'])
-def main():
+@app.route('/ChromeHearts',methods=['GET','POST'])
+def shopping():
     global productimg,productname,price
     if request.method=='GET':
         total=0
@@ -112,16 +115,16 @@ def shop(productname):
                         hiddenamount.append(count)
                         count=count+1
                     conf='Added to cart.'
-                    return redirect(url_for('main')) 
+                    return redirect(url_for('shopping')) 
                 else:
                     error='Please enter a valid amount.'
-                    return render_template('aaaa.html',productimg=productimg,error=error)
+                    return render_template('/store/option.html',productimg=productimg,error=error)
             else:
                 error='Please enter a valid amount.'
-                return render_template('aaaa.html',productimg=productimg,error=error)
+                return render_template('/store/option.html',productimg=productimg,error=error)
         else:
             conf=''
-            return redirect(url_for('main'))
+            return redirect(url_for('shopping'))
 
 @app.route('/cart',methods=['GET','POST'])
 def cart():
@@ -164,31 +167,26 @@ def receipt():
                  f'QTY:{cartamount[i]}',
                  f'${cartprice[i]}0')
             )
-        filename='test'+'.txt'#change test
+        filename=regusername+'.txt'
         ifexists=bool(path.exists(filename))
         if ifexists==False:
             pythfile=open(filename,'w')
-            print('s file created successfully!')#put name variable b4 's
+            print(regusername+'s file created successfully!')
             for i in range(0,cartimglen):
-                pythfile.write(cartproduct[i])
-                pythfile.write(str(cartamount[i]))
-                pythfile.write(str(cartprice[i]))
+                pythfile.write(f'{cartproduct[i]} QTY:{cartamount[i]} ${cartprice[i]}0\n')
             pythfile.close()
         else:
             pythfile=open(filename,"a")
             for i in range(0,cartimglen):
-                pythfile.write(cartproduct[i])
-                pythfile.write(str(cartamount[i]))
-                pythfile.write(str(cartprice[i]))
+                pythfile.write(f'{cartproduct[i]} QTY:{cartamount[i]} ${cartprice[i]}0\n')
             pythfile.close()
-        pythfile=open(filename,'r')
-        print(pythfile.readline())
+        pythfile=open(filename,'r+')
+        print(pythfile.read())
         pythfile.close()
-        return render_template('/store/storereceipt.html',data=data,headings=headings,total=total)
+        return render_template('/store/storereceipt.html',data2=data2,headings2=headings2,total=total)
 
 if __name__=='__main__':
     app.run()
-
 
 
 
