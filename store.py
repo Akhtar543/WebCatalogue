@@ -12,7 +12,35 @@ hiddenamount=[]
 count=0
 productimg=''
 conf=''
+
+'''
 @app.route('/',methods=['GET','POST'])
+def signin():
+    if request.method=="GET":
+        return render_template("/store/signIn.html", error="")
+    else:
+        password=request.form.get("password")
+        username=request.form.get("username")
+        if regusername != None and regpassword != None:
+            if password.len() > 4 and username.len() > 2:
+                regusername = username
+                regpassword = password
+                return redirect_url(url_for("main"))
+            else:
+                if password.len() < 5 and username.len() < 3:
+                    return render_template("/store/signIn.html", error="Both username and password are too short")
+                if password.len() < 5:
+                    return render_template("/store/signIn.html", error="Your assword is too short")
+                if username.len() < 3:
+                    return render_template("/store/signIn.html", error="Your username is too short")
+        else:
+            if password == regpassword and username == regusername:
+                return redirect_url(url_for("main"))
+            else:
+                return render_template("/store/signIn.html", error="Incorrect Password")
+'''
+
+@app.route('/shopping',methods=['GET','POST'])
 def main():
     global productimg,productname,price
     if request.method=='GET':
@@ -160,3 +188,7 @@ def receipt():
 
 if __name__=='__main__':
     app.run()
+
+
+
+
