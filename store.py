@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for
 from os import path
+import calendar
 
 app=Flask(__name__)
 
@@ -31,7 +32,7 @@ def signin():
             if len(password) > 4 and len(username) > 2:
                 regusername=username
                 regpassword=password
-                return redirect(url_for("shopping"))
+                return redirect(url_for("info"))
             else:
                 if len(password) < 5 and len(username) < 3:
                     return render_template("/store/signIn.html", error="Both username and password are too short")
@@ -41,9 +42,36 @@ def signin():
                     return render_template("/store/signIn.html", error="Your username is too short (3 or more)")
         else:
             if password==regpassword and username==regusername:
-                return redirect(url_for("shopping"))
+                return redirect(url_for("info"))
             else:
                 return render_template("/store/signIn.html", error="Incorrect Username or Password")
+
+@app.route('/Personal Information',methods=['GET','POST'])
+def info():
+    global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count
+    if request.method=='GET':
+        if count==0:
+            return render_template('/store/info.html',regusername=regusername)
+        else:
+            return render_template('/store/info.html',regusername=regusername,firstn=fname,
+                                   lastn=lname,dob=dob,pnum=pnum,address=address,
+                                   email=email,dccn=dccn,expd=expd,cvv=cvv)
+    else:
+        count=1
+        fname=request.form.get('txtfirst')
+        lname=request.form.get('txtlast')
+        dob=request.form.get('txtdob')
+        pnum=request.form.get('txtphone')
+        address=request.form.get('txtaddress')
+        email=request.form.get('txtemail')
+        dccn=request.form.get('txtd/ccn')
+        expd=request.form.get('txtexpd')
+        cvv=request.form.get('txtcvv')
+        if :
+             return redirect(url_for('shopping'))
+        else:
+            error='An error in one the information you have entered.'
+            return render_template('/store/info.html',user=user,error=error)
 
 @app.route('/ChromeHearts',methods=['GET','POST'])
 def shopping():
