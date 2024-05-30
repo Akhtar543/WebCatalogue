@@ -58,6 +58,7 @@ def info():
                                    email=email,dccn=dccn,expd=expd,cvv=cvv)
     else:
         count=1
+        calmcheck=0
         fname=request.form.get('txtfirst')
         lname=request.form.get('txtlast')
         dob=request.form.get('txtdob')
@@ -67,11 +68,33 @@ def info():
         dccn=request.form.get('txtd/ccn')
         expd=request.form.get('txtexpd')
         cvv=request.form.get('txtcvv')
-        if :
-             return redirect(url_for('shopping'))
+        if len(fname)>0 and len(lname)>0:
+            calmcheck+=1
+        if ..dob..:#datepart
+            calmcheck+=1
+        if pnum==10:
+            calmcheck+=1
+        if len(address)>0:
+            calmcheck+=1
+        if len(email)>0:
+            calmcheck+=1
+        match len(dccn):
+            case 15:
+                calmcheck+=1
+            case 16:
+                calmcheck+=1
+        if ..expd..: #datepart
+            calmcheck+=1
+        match len(cvv):
+            case 3:
+                calmcheck+=1
+            case 4:
+                calmcheck+=1
+        if calmcheck==8:
+            return redirect(url_for('shopping'))
         else:
             error='An error in one the information you have entered.'
-            return render_template('/store/info.html',user=user,error=error)
+            return render_template('/store/info.html',regusername=regusername,error=error)
 
 @app.route('/ChromeHearts',methods=['GET','POST'])
 def shopping():
