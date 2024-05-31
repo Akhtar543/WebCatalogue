@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for
 from os import path
-import calendar
+from datetime import datetime
 
 app=Flask(__name__)
 
@@ -46,7 +46,7 @@ def signin():
             else:
                 return render_template("/store/signIn.html", error="Incorrect Username or Password")
 
-@app.route('/Personal Information',methods=['GET','POST'])
+@app.route('/Personal-Information',methods=['GET','POST'])
 def info():
     global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count
     if request.method=='GET':
@@ -57,6 +57,15 @@ def info():
                                    lastn=lname,dob=dob,pnum=pnum,address=address,
                                    email=email,dccn=dccn,expd=expd,cvv=cvv)
     else:
+        error1=''
+        error2=''
+        error3=''
+        error4=''
+        error5=''
+        error6=''
+        error7=''
+        error8=''
+        error9=''
         count=1
         calmcheck=0
         fname=request.form.get('txtfirst')
@@ -68,35 +77,79 @@ def info():
         dccn=request.form.get('txtd/ccn')
         expd=request.form.get('txtexpd')
         cvv=request.form.get('txtcvv')
-        if len(fname)>0 and len(lname)>0:
+        current=datetime.now().date()
+        #first name check
+        if len(fname)>0:
             calmcheck+=1
-        if ..dob..:#datepart
+        else:
+            error1='Empty!'
+        #last name check
+        if len(lname)>0:
             calmcheck+=1
-        if pnum==10:
+        else:
+            error2='Empty!'
+        #age check
+        if dob:
+            myd=datetime.strptime(dob,'%Y-%m-%d').date()
+            age=current.year-myd.year
+            if age>=18:
+                calmcheck+=1
+            else:
+                error3='Not 18 or older!'
+        else:
+            error3='Empty!'
+        #number length check
+        if len(pnum)==10:
             calmcheck+=1
+        else:
+            error4='Needs to be 10 digits!'
+        #address length check
         if len(address)>0:
             calmcheck+=1
+        else:
+            error5='Empty!'
+        #email length check
         if len(email)>0:
             calmcheck+=1
+        else:
+            error6='Empty!'
+        #debit card number length check
         match len(dccn):
             case 15:
                 calmcheck+=1
             case 16:
                 calmcheck+=1
-        if ..expd..: #datepart
-            calmcheck+=1
+            case _:
+                error7='Needs to be 15 or 16 digits!'
+        #expiration date check
+        if expd:
+            expdate=datetime.strptime(expd,'%Y-%m-%d').date()
+            if expdate>current:
+                calmcheck+=1
+            else:
+                error8='Expired!'
+        else:
+            error8='Empty!'
+        #cvv length check
         match len(cvv):
             case 3:
                 calmcheck+=1
             case 4:
                 calmcheck+=1
-        if calmcheck==8:
+            case _:
+                error9='Needs to be 3 or 4 digits!'
+        if calmcheck==9:
             return redirect(url_for('shopping'))
         else:
-            error='An error in one the information you have entered.'
-            return render_template('/store/info.html',regusername=regusername,error=error)
+            return render_template('/store/info.html',regusername=regusername,
+                                   error1=error1,error2=error2,error3=error3,
+                                   error4=error4,error5=error5,error6=error6,
+                                   error7=error7,error8=error8,error9=error9,
+                                   firstn=fname,lastn=lname,dob=dob,pnum=pnum,
+                                   address=address,email=email,dccn=dccn,
+                                   expd=expd,cvv=cvv)
 
-@app.route('/ChromeHearts',methods=['GET','POST'])
+@app.route('/Gold-Hearts',methods=['GET','POST'])
 def shopping():
     global productimg,productname,price
     if request.method=='GET':

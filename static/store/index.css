@@ -1,0 +1,37 @@
+body{
+    font-family:Arial;
+    background-color:#f0f2f5;
+    display:flex;
+    justify-content:center;
+    margin:0;
+}
+table{
+    margin:auto;
+}
+th,td{
+    padding:10px;
+}
+th{
+    text-align:left;
+}
+button{
+    background-color:#4CAF50;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+input{
+    width:100%;
+    padding:8px;
+    margin:4px 0;
+    border:1px solid #000000;
+    border-radius:4px;
+    box-sizing:border-box;
+}
+label{
+    color:red;
+    display:block;
+    margin-top:325px;
+}

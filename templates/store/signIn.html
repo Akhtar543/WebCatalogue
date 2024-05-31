@@ -1,10 +1,12 @@
 <html>
 	<head>
 		<title>Sign In</title>
+		<link rel='stylesheet' href='/static/store/index.css'> 
 		<script src="/static/store/signin.js"></script>
 	</head>
 	<body>
 		<form method="post">
+			<label>{{error}}</label>
 			<table>
 				<tr>
 					<th>Username:</th>
@@ -16,7 +18,6 @@
 				</tr>
 				<tr>
 					<td><button name="submit">Submit</button></td>
-					<label>{{error}}</label>
 				</tr>
 			</table>
 		</form>
