@@ -12,6 +12,7 @@ headings=['Items','Product','Quantity','Price']
 headings2=['Product','Quantity','Price']
 hiddenamount=[]
 count=0
+count2=0
 total=0
 tax=0
 productimg=''
@@ -26,31 +27,38 @@ def signin():
     if request.method=="GET":
         return render_template("/store/signIn.html", error="")
     else:
+        error=''
         password=request.form.get("password")
         username=request.form.get("username")
         if regusername==None and regpassword==None:
-            if len(password) > 4 and len(username) > 2:
+            if len(password)>4 and len(username)>2:
                 regusername=username
                 regpassword=password
-                return redirect(url_for("info"))
+                return redirect(url_for("shopping"))
             else:
+                if password==username:
+                    error=error+"Username and password are the same\n"
+                    return render_template("/store/signIn.html", error=error)
                 if len(password) < 5 and len(username) < 3:
-                    return render_template("/store/signIn.html", error="Both username and password are too short")
+                    error=error+"Both username and password are too short\n"
+                    return render_template("/store/signIn.html", error=error)
                 if len(password) < 5:
-                    return render_template("/store/signIn.html", error="Your password is too short(5 or more)")
+                    error=error+"Your password is too short(5 or more)\n"
+                    return render_template("/store/signIn.html", error=error)
                 if len(username) < 3:
-                    return render_template("/store/signIn.html", error="Your username is too short (3 or more)")
+                    error=error+"Your username is too short (3 or more)\n"
+                    return render_template("/store/signIn.html", error=error)
         else:
             if password==regpassword and username==regusername:
-                return redirect(url_for("info"))
+                return redirect(url_for("shopping"))
             else:
                 return render_template("/store/signIn.html", error="Incorrect Username or Password")
 
 @app.route('/Personal-Information',methods=['GET','POST'])
 def info():
-    global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count
+    global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count2
     if request.method=='GET':
-        if count==0:
+        if count2==0:
             return render_template('/store/info.html',regusername=regusername)
         else:
             return render_template('/store/info.html',regusername=regusername,firstn=fname,
@@ -66,7 +74,7 @@ def info():
         error7=''
         error8=''
         error9=''
-        count=1
+        count2=1
         calmcheck=0
         fname=request.form.get('txtfirst')
         lname=request.form.get('txtlast')
@@ -139,7 +147,7 @@ def info():
             case _:
                 error9='Needs to be 3 or 4 digits!'
         if calmcheck==9:
-            return redirect(url_for('shopping'))
+            return redirect(url_for('receipt'))
         else:
             return render_template('/store/info.html',regusername=regusername,
                                    error1=error1,error2=error2,error3=error3,
@@ -251,7 +259,6 @@ def cart():
     else:
         zanumber=request.form.get('remove')
         check=zanumber.isdigit()
-        print(check)
         if check==True:
             zanumber=int(zanumber)
             cartimg.pop(zanumber)
@@ -260,13 +267,12 @@ def cart():
             cartprice.pop(zanumber)
             return redirect(url_for('cart'))
         else:
-            return redirect(url_for('receipt'))
+            return redirect(url_for('info'))
 
 @app.route('/receipt',methods=['GET','POST'])
 def receipt():
     global total
     if request.method=='GET':
-        print('a')
         data2=[]
         for i in range(0,cartimglen):
             data2.append(
