@@ -1,0 +1,65 @@
+button{
+    cursor: pointer;
+	background: none;
+    border: none;
+    color: gold;
+    font-size: 1.2em;
+    margin: 20px;
+    text-decoration: underline;
+}
+#btncart,#btn1,#btn2,#btn3,#btn4,#btn5,#btn6,#btn7,#btn8,#btn9{
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 300px;
+    height: 300px;
+}
+#btncart{
+	background-image:url('/static/store/cart.png');
+	background-size:70%;
+	background-repeat:no-repeat;
+	background-position:center;
+	width:70px;
+	height:70px;
+	border-radius:50px;
+	cursor:pointer;
+	float:right;
+	margin: -30 20 0 0;
+}
+#btn1{
+	background-image: url('/static/store/a.jpg');
+}
+#btn2{
+	background-image: url('/static/store/b.jpg');
+}
+#btn3{
+	background-image: url('/static/store/c.jpg');
+}
+#btn4{
+	background-image: url('/static/store/d.jpg');
+}
+#btn5{
+	background-image: url('/static/store/e.jpg');
+}
+#btn6{
+	background-image: url('/static/store/f.jpg');
+}
+#btn7{
+	background-image: url('/static/store/g.jpg');
+}
+#btn8{
+	background-image: url('/static/store/h.jpg');
+}
+#btn9{
+	background-image: url('/static/store/i.jpg');
+}
+div{
+	text-align: center;
+	margin: 50px 0;
+}
+#btnjew,#btnshi,#btnpan{
+	font-size:35px;
+}
+#btnjew:hover,#btnshi:hover,#btnpan:hover{
+	color: black;
+	background-color: gold;
+}

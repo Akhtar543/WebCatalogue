@@ -10,9 +10,7 @@ cartprice=[]
 cartamount=[]
 headings=['Items','Product','Quantity','Price']
 headings2=['Product','Quantity','Price']
-hiddenamount=[]
 count=0
-count2=0
 total=0
 tax=0
 productimg=''
@@ -27,38 +25,31 @@ def signin():
     if request.method=="GET":
         return render_template("/store/signIn.html", error="")
     else:
-        error=''
         password=request.form.get("password")
         username=request.form.get("username")
         if regusername==None and regpassword==None:
-            if len(password)>4 and len(username)>2:
+            if len(password) > 4 and len(username) > 2:
                 regusername=username
                 regpassword=password
-                return redirect(url_for("shopping"))
+                return redirect(url_for("info"))
             else:
-                if password==username:
-                    error=error+"Username and password are the same\n"
-                    return render_template("/store/signIn.html", error=error)
                 if len(password) < 5 and len(username) < 3:
-                    error=error+"Both username and password are too short\n"
-                    return render_template("/store/signIn.html", error=error)
+                    return render_template("/store/signIn.html", error="Both username and password are too short")
                 if len(password) < 5:
-                    error=error+"Your password is too short(5 or more)\n"
-                    return render_template("/store/signIn.html", error=error)
+                    return render_template("/store/signIn.html", error="Your password is too short(5 or more)")
                 if len(username) < 3:
-                    error=error+"Your username is too short (3 or more)\n"
-                    return render_template("/store/signIn.html", error=error)
+                    return render_template("/store/signIn.html", error="Your username is too short (3 or more)")
         else:
             if password==regpassword and username==regusername:
-                return redirect(url_for("shopping"))
+                return redirect(url_for("info"))
             else:
                 return render_template("/store/signIn.html", error="Incorrect Username or Password")
 
 @app.route('/Personal-Information',methods=['GET','POST'])
 def info():
-    global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count2
+    global fname,lname,dob,pnum,address,email,dccn,expd,cvv,count
     if request.method=='GET':
-        if count2==0:
+        if count==0:
             return render_template('/store/info.html',regusername=regusername)
         else:
             return render_template('/store/info.html',regusername=regusername,firstn=fname,
@@ -74,7 +65,7 @@ def info():
         error7=''
         error8=''
         error9=''
-        count2=1
+        count=1
         calmcheck=0
         fname=request.form.get('txtfirst')
         lname=request.form.get('txtlast')
@@ -147,7 +138,7 @@ def info():
             case _:
                 error9='Needs to be 3 or 4 digits!'
         if calmcheck==9:
-            return redirect(url_for('receipt'))
+            return redirect(url_for('shopping'))
         else:
             return render_template('/store/info.html',regusername=regusername,
                                    error1=error1,error2=error2,error3=error3,
@@ -222,12 +213,6 @@ def shop(productname):
                     cartimg.append(productimg)
                     cartprice.append(price)
                     cartamount.append(amount)
-                    if count==0:
-                        hiddenamount.append(count)
-                        count=count+1
-                    else:
-                        hiddenamount.append(count)
-                        count=count+1
                     conf='Added to cart.'
                     return redirect(url_for('shopping')) 
                 else:
@@ -255,7 +240,7 @@ def cart():
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]}0')
             )
-        return render_template('/store/cart.html',data=data,headings=headings,total=total,hiddenamount=hiddenamount,cartimglen=cartimglen)
+        return render_template('/store/cart.html',data=data,headings=headings,total=total,cartimglen=cartimglen)
     else:
         zanumber=request.form.get('remove')
         check=zanumber.isdigit()
@@ -267,7 +252,7 @@ def cart():
             cartprice.pop(zanumber)
             return redirect(url_for('cart'))
         else:
-            return redirect(url_for('info'))
+            return redirect(url_for('receipt'))
 
 @app.route('/receipt',methods=['GET','POST'])
 def receipt():

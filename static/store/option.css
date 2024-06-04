@@ -1,0 +1,30 @@
+div{
+	text-align:center;
+	margin:50px auto;
+	width:50%;
+	border:1px solid gold;
+	padding:20px;
+	border-radius:10px;
+	background-color:black;
+}
+
+img{
+	width:300px;
+	margin:20px 0;
+}
+
+input{
+	width:50%;
+	text-align:center;
+}
+
+button{
+	width:80%;
+	border-radius:5px;
+	margin:10px auto;
+	display:block;
+}
+
+label{
+	color:red;
+}

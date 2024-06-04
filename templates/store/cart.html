@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Shopping Cart</title>
+		<link rel='stylesheet' href='/static/store/global.css'>
 		<link rel='stylesheet' href='/static/store/cart.css'>
 	</head>
 	<body>
@@ -24,10 +25,10 @@
 			<form method='post'>
 				{%for i in range(0,cartimglen)%}
 					<h4>{{i+1}}:</h4>
-					<button id='btnremove' name='remove' value={{hiddenamount[i]}}>Remove</button><br>
+					<button id='btnremove' name='remove' value={{i}}>Remove</button><br>
 				{%endfor%}
 			</form>
-		<h3>{{total}}0</h3>
+		<h3>Total:{{total}}</h3>
 		<form method='post'>
 			<button name='remove' value='nunyabusiness'>CHECKOUT</button>
 		</form>
