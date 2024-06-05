@@ -7,11 +7,12 @@
 	<body>
 		<form method='post'>
 			<div id=''>
-				<img src='/static/store/{{productimg}}.jpg'>
+				<img src='/static/store/{{productimg}}.jpg'><br>
+				<label id='lblprice'>${{price}}0</label>
 				<input id='txtamount' name='amount' type='number'>
 				<button id='btnadd' name='clicked' value='a'>Add to cart</button>
 				<button id='btnbye' name='clicked' value='b'>Back</button>
-				<label>{{error}}</label>
+				<label id='lblerror'>{{error}}</label>
 			</div>
 		</form>
 	</body>

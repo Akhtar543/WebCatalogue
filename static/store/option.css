@@ -24,7 +24,9 @@ button{
 	margin:10px auto;
 	display:block;
 }
-
-label{
+#lblprice{
+	color:gold;
+}
+#lblerror{
 	color:red;
 }

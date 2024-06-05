@@ -200,7 +200,7 @@ def shopping():
 def shop(productname):
     global conf,count
     if request.method=='GET':
-        return render_template('/store/option.html',productimg=productimg,conf=conf)
+        return render_template('/store/option.html',productimg=productimg,price=price,conf=conf)
     else:
         mystery=request.form.get('clicked')
         amount=request.form.get('amount')
