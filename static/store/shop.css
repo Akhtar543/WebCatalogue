@@ -23,43 +23,46 @@ button{
 	border-radius:50px;
 	cursor:pointer;
 	float:right;
-	margin: -30 20 0 0;
+	margin:-30 20 0 0;
 }
 #btn1{
-	background-image: url('/static/store/a.jpg');
+	background-image:url('/static/store/Bracelet.png');
+	background-size:330px;
 }
 #btn2{
-	background-image: url('/static/store/b.jpg');
+	background-image:url('/static/store/Chain.png');
+	background-size:330px;
 }
 #btn3{
-	background-image: url('/static/store/c.jpg');
+	background-image:url('/static/store/Earring.png');
 }
 #btn4{
-	background-image: url('/static/store/d.jpg');
+	background-image:url('/static/store/d.jpg');
 }
 #btn5{
-	background-image: url('/static/store/e.jpg');
+	background-image:url('/static/store/e.jpg');
 }
 #btn6{
-	background-image: url('/static/store/f.jpg');
+	background-image:url('/static/store/f.jpg');
 }
 #btn7{
-	background-image: url('/static/store/g.jpg');
+	background-image:url('/static/store/g.jpg');
 }
 #btn8{
-	background-image: url('/static/store/h.jpg');
+	background-image:url('/static/store/h.jpg');
 }
 #btn9{
-	background-image: url('/static/store/i.jpg');
+	background-image:url('/static/store/Patrick.png');
+	background-size:330px;
 }
 div{
-	text-align: center;
-	margin: 50px 0;
+	text-align:center;
+	margin:50px 0;
 }
 #btnjew,#btnshi,#btnpan{
 	font-size:35px;
 }
 #btnjew:hover,#btnshi:hover,#btnpan:hover{
-	color: black;
-	background-color: gold;
+	color:black;
+	background-color:gold;
 }

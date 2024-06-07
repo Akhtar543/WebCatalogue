@@ -157,17 +157,17 @@ def shopping():
     else:
         productimg=request.form.get('pick')
         match productimg:
-            case 'a':
-                productname='prod1' #all soon to change(product name, price, and add more ofc)
-                price=10.00
+            case 'Bracelet':
+                productname='Bracelet' #all soon to change(product name, price, and add more ofc)
+                price=2200.00
                 return redirect(url_for('shop',productname=productname))
-            case 'b':
-                productname='prod2'
-                price=20.00
+            case 'Chain':
+                productname='Chain'
+                price=2000.00
                 return redirect(url_for('shop',productname=productname))
-            case 'c':
-                productname='prod3'
-                price=30.00
+            case 'Earring':
+                productname='Earring'
+                price=150.00
                 return redirect(url_for('shop',productname=productname))
             case 'd':
                 productname='prod4'
@@ -189,9 +189,9 @@ def shopping():
                 productname='prod8'
                 price=80.00
                 return redirect(url_for('shop',productname=productname))
-            case 'i':
-                productname='prod9'
-                price=90.00
+            case 'Patrick':
+                productname='Patrick'
+                price=1040.00
                 return redirect(url_for('shop',productname=productname))
             case 'cart':
                 return redirect(url_for('cart'))
@@ -235,7 +235,7 @@ def cart():
         for i in range(0,cartimglen):
             total=total+(cartprice[i]*cartamount[i])
             data.append(
-                (f'<img src="/static/store/{cartimg[i]}.jpg">',
+                (f'<img src="/static/store/{cartimg[i]}.png">',
                  cartproduct[i],
                  f'QTY: {cartamount[i]}',
                  f'${cartprice[i]}0')
