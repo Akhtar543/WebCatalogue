@@ -37,19 +37,19 @@ button{
 	background-image:url('/static/store/Earring.png');
 }
 #btn4{
-	background-image:url('/static/store/d.jpg');
+	background-image:url('/static/store/Shirt.png');background-size:330px;
 }
 #btn5{
-	background-image:url('/static/store/e.jpg');
+	background-image:url('/static/store/Hoodie.png');background-size:330px;
 }
 #btn6{
-	background-image:url('/static/store/f.jpg');
+	background-image:url('/static/store/Jacket.png');background-size:330px;
 }
 #btn7{
-	background-image:url('/static/store/g.jpg');
+	background-image:url('/static/store/Sweatpants.png');background-size:330px;
 }
 #btn8{
-	background-image:url('/static/store/h.jpg');
+	background-image:url('/static/store/Jeans.png');background-size:430px;
 }
 #btn9{
 	background-image:url('/static/store/Patrick.png');

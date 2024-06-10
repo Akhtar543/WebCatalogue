@@ -167,27 +167,27 @@ def shopping():
                 return redirect(url_for('shop',productname=productname))
             case 'Earring':
                 productname='Earring'
-                price=150.00
+                price=550.00
                 return redirect(url_for('shop',productname=productname))
-            case 'd':
-                productname='prod4'
-                price=40.00
+            case 'Shirt':
+                productname='Shirt'
+                price=290.00
                 return redirect(url_for('shop',productname=productname))
-            case 'e':
-                productname='prod5'
-                price=50.00
+            case 'Hoodie':
+                productname='Hoodie'
+                price=320.00
                 return redirect(url_for('shop',productname=productname))
-            case 'f':
-                productname='prod6'
-                price=60.00
+            case 'Jacket':
+                productname='Jacket'
+                price=360.00
                 return redirect(url_for('shop',productname=productname))
-            case 'g':
-                productname='prod7'
-                price=70.00
+            case 'Sweatpants':
+                productname='Sweatpants'
+                price=430.00
                 return redirect(url_for('shop',productname=productname))
-            case 'h':
-                productname='prod8'
-                price=80.00
+            case 'Jeans':
+                productname='Jeans'
+                price=480.00
                 return redirect(url_for('shop',productname=productname))
             case 'Patrick':
                 productname='Patrick'
